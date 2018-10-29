@@ -312,7 +312,7 @@ Once we extract features, we are ready to train our model.
 rosrun sensor_stick train_svm.py
 ```
 
-![confusion][confusion matrix]
+![confusion][confusion]
 
 ```sh
 Features in Training Set: 400
