@@ -47,7 +47,7 @@ First, we need to convert ROS PointCloud2 message to PCL PointXYGRGB.
 
 ##### Statistical Outlier Filtering
 
-Now, we can apply a statistical outlier filter to remove RGB-D senser noise from point cloud.
+Now, we can apply a statistical outlier filter to remove RGB-D senser noise from point cloud. PCL's StatisticalOutlierRemoval filter is one of the filtering techniques to remove outliers. It measures the distance of neighbors of each point in the point cloud, and then calculates a mean distance. Points are removed from the point cloud if they are outside of an interval decided by the global distances mean standard deviation. In this project, we will set the number of neighboring points to 3.
 
 ```python
     # Statistical Outlier Filtering
@@ -69,7 +69,7 @@ Now, we can apply a statistical outlier filter to remove RGB-D senser noise from
 
 ##### Voxel Grid Downsampling
 
-VoxelGrid Downsampling Filter decreases points in a point cloud in order to reduce computation.
+The advantage of downsample, which is reducing the number of points in a point cloud, is to decrease computation. VoxelGrid Downsampling Filter can be used. The units of leaf size are in meters Thus, setting it to 1 means our voxel is 1 cubic meter in volume. We set our leaf size to 0.01, which means our voxels are one centimeter apart.
 
 ```python
     # Voxel Grid Downsampling
@@ -87,7 +87,7 @@ VoxelGrid Downsampling Filter decreases points in a point cloud in order to redu
 
 ##### PassThrough Filter
 
-We can remove useless data from a point cloud in case we know the location of our target in the scene.
+We can remove useless data from a point cloud in case we know the location of our target in the scene by using a Pass Throught Filter. The region we pass is often referred to as region of interest. We will apply a Pass Through Filter along 'z' and 'y' axises. By doing this, we can select a region of interest and remove unnecessary data.
 
 ```python
     # PassThrough Filter
@@ -118,7 +118,7 @@ We can remove useless data from a point cloud in case we know the location of ou
 
 ##### RANSAC Plane Segmentation
 
-We can remove the table itself from the secne using Random Sample Consensus or "RANSAC".
+We can remove the table itself from the secne using Random Sample Consensus or "RANSAC". RANSAC algrithm can be used to classify points in a point cloud that belong to a particular model. the model can be a plane, a cylinder, a box, or any other common shape in 3D scene. RANSAC assumes that the data consists of inliers whose distrubution fits a particular model, and outliers that does not fit the model. Using RANSAC, we can remove the inliers from the point cloud that are good fits for the model.
 
 ```python
     # RANSAC Plane Segmentation
@@ -151,7 +151,7 @@ We can remove the table itself from the secne using Random Sample Consensus or "
 
 ##### Euclidean Clustering
 
-With PCL's Euclidean Clustering algorithm, we can segment the points, which are filtered out the table, and outside of the region of interest , into individual objects.
+With PCL's Euclidean Clustering algorithm, we can segment the points, which are filtered out the table, and outside of the region of interest , into individual objects. Before we perform Euclidean Clustering, we need to construct a k-d tree to reduce computation. Once we have k-d tree, we can extract the cluster.
 
 ```python
     # Euclidean Clustering
@@ -178,7 +178,7 @@ With PCL's Euclidean Clustering algorithm, we can segment the points, which are 
 
 ##### Cluster Visualization
 
-We can visualize the results in RViz.
+We can visualize the lists of points for each object in RViz.
 
 ```python
     #Assign a color corresponding to each segmented object in scene
@@ -216,7 +216,9 @@ We can visualize the results in RViz.
 
 #### 3. Complete Exercise 3 Steps. Features extracted and SVM trained. Object recognition implemented.
 
-We can classify each object using Support Vector Machine or "SVM". Before we use SVM, we need to generate features. Following codes are used to capture features.
+We can classify each object using Support Vector Machine or "SVM". SVM is a particular supervised learning algrithm that analyze data for classification and regression analysis. Given labeled training data, we can characterize the point cloud into discrete classes.
+
+Before we use SVM, we need to generate features. Following codes are used to capture features.
 
 ```python
 def compute_color_histograms(cloud, using_hsv=True):
@@ -391,4 +393,10 @@ After we obtained a trained classifier, we can do object recognition.
 [output_2.yaml](./pr2_robot/scripts/output/output_2.yaml)
 
 [output_3.yaml](./pr2_robot/scripts/output/output_3.yaml)
+
+##### Future Work
+
+To improve this project further, increasing the numbers of samples in `capture_features.ph`. Also, it would be better to run this project on more powerful computer in a native Linux, instead of VM.
+
+Also, it would be a good try that we adjust configurations such as `nbins` in `features.py`.
 
