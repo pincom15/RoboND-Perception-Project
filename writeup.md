@@ -277,7 +277,7 @@ def compute_normal_histograms(normal_cloud):
 
     # TODO: Compute histograms of normal values (just like with color)
     nbins=40
-    bins_range=(0., 1.)
+    bins_range=(-1., 1.)
 
     # Compute the histogram of the channels separately
     norm_x_hist = np.histogram(norm_x_vals, bins=nbins, range=bins_range)
