@@ -318,10 +318,10 @@ rosrun sensor_stick train_svm.py
 
 ```sh
 Features in Training Set: 400
-Invalid Features in Training set: 1
-Scores: [ 0.9625      0.9125      0.9125      0.9         0.96202532]
-Accuracy: 0.93 (+/- 0.05)
-accuracy score: 0.929824561404
+Invalid Features in Training set: 0
+Scores: [ 0.9625  0.95    0.9375  0.9125  0.95  ]
+Accuracy: 0.94 (+/- 0.03)
+accuracy score: 0.9425
 ```
 
 After we obtained a trained classifier, we can do object recognition.
